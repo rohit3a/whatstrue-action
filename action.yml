@@ -1,0 +1,36 @@
+name: "what's true?"
+description: Check public docs for drift and risky specifics, and push the docs manifest to what's true?.
+author: KRNL
+branding: { icon: check-circle, color: green }
+inputs:
+  token:
+    description: A product token with the write scope, from the product's settings in what's true?. Pushing is skipped without one.
+    required: false
+  config:
+    description: The repo's what's true? config.
+    default: whatstrue/config.yaml
+  manifest:
+    description: The manifest your build writes. If it is not there, it is built from the Markdown docs before pushing.
+    default: whatstrue/manifest.json
+  check:
+    description: Run the guard and fail the job on block findings (true or false).
+    default: "true"
+  push:
+    description: Upload the manifest (auto pushes when a token is set).
+    default: auto
+  origin:
+    description: The what's true? instance.
+    default: https://true.krnl.studio
+  working-directory:
+    description: Where the repo is checked out.
+    default: "."
+outputs:
+  blocking:
+    description: Block findings no exception covers.
+  warnings:
+    description: Warnings.
+  commit:
+    description: The commit the manifest was pushed for.
+runs:
+  using: node24
+  main: dist/index.mjs
